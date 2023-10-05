@@ -1,0 +1,27 @@
+.slideFromLeft {
+  animation: slideFromLeft;
+  animation-duration: 2s;
+}
+@keyframes slideFromLeft {
+  from {
+    margin-left: -300px;
+    opacity: 0;
+  }
+  to {
+    margin-left: 0;
+    opacity: 1;
+  }
+}
+
+.ErrorAnimation{
+  width: 900px;
+  margin: 20px auto;
+  
+}
+
+@media only screen and (max-width:800px){
+  .ErrorAnimation {
+      width: 90% !important;
+      margin: 20px auto;
+  }
+}

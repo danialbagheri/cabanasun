@@ -1,0 +1,25 @@
+{
+  "WillLuke.nextjs.hasPrompted": true,
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#FCF5EC",
+    "activityBar.activeBorder": "#6fb1de",
+    "activityBar.background": "#fcf5ecd2",
+    "activityBar.foreground": "#1d6bb9",
+    "activityBar.inactiveForeground": "#1d6bb9",
+    "activityBarBadge.background": "#24b451",
+    "activityBarBadge.foreground": "#a25e17",
+    "sash.hoverBorder": "#49c7de",
+    "statusBar.background": "#FCF5EC",
+    "statusBar.foreground": "#15202b",
+    "statusBarItem.hoverBackground": "#6fb1de",
+    "statusBarItem.remoteBackground": "#6fb1de",
+    "statusBarItem.remoteForeground": "#15202b",
+    "titleBar.activeBackground": "#FCF5EC",
+    "titleBar.activeForeground": "#1d6bb9",
+    "titleBar.inactiveBackground": "#26b5ce99",
+    "titleBar.inactiveForeground": "#15202b99",
+    "commandCenter.border": "#1d6bb9"
+  },
+  "peacock.color": "#26b5ce",
+  "eslint.enable": true
+}

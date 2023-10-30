@@ -10,7 +10,6 @@ import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 /* -------------------------------------------------------------------------- */
 
-import data from '../../data.json'
 import RelatedProduct from '../../components/products/related-products'
 import ProductSchema from '../../components/seo/product-schema'
 
@@ -21,7 +20,12 @@ import {
   ProductDescription,
   ProductImageSlider,
 } from 'components'
-import {getProductData, getProductReviews} from 'services'
+import {
+  getProductData,
+  getProductReviews,
+  getProducts,
+  getProductsWithPagination,
+} from 'services'
 import {useSearchParams} from 'next/navigation'
 
 function Product(props) {
@@ -143,7 +147,7 @@ export async function getStaticProps(context) {
     reviewData = null
   }
 
-  // key is needed here
+  // key is needed here`
   return {
     props: {
       key: productData.id,
@@ -156,13 +160,11 @@ export async function getStaticProps(context) {
   }
 }
 
-async function getAllPages(pageCount, url) {
+async function getAllPages(pageCount) {
   let pageNumber = 1
   const productResult = []
   for (pageNumber; pageNumber <= pageCount; pageNumber++) {
-    const paginatedUrl = url + `?page=${pageNumber}`
-    const res = await fetch(paginatedUrl)
-    const products = await res.json()
+    const products = await getProductsWithPagination(pageNumber)
     productResult.push(products.results)
   }
 
@@ -170,16 +172,13 @@ async function getAllPages(pageCount, url) {
 }
 
 export async function getStaticPaths() {
-  const baseUrl = data.apiUrl
-  const url = baseUrl + 'products/product/'
-  const res = await fetch(url)
-  const products = await res.json()
+  const products = await getProducts()
   const pageCount = Math.ceil(products.count / 10)
-  const productResult = await getAllPages(pageCount, url)
+  const productResult = await getAllPages(pageCount)
   const slugPaths = []
 
-  for (let i = 0; i < productResult.length; i++) {
-    const slugs = productResult[i].map(item => {
+  for (const element of productResult) {
+    const slugs = element.map(item => {
       return {
         params: {
           slug: item.slug,
@@ -188,6 +187,7 @@ export async function getStaticPaths() {
     })
     Array.prototype.push.apply(slugPaths, slugs)
   }
+
   return {
     paths: slugPaths,
     fallback: false,

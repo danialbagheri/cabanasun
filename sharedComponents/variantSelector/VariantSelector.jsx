@@ -15,7 +15,7 @@ function VariantSelector({
 
   const urlSku = searchParams.get('sku')
 
-  const isAllVarSPF = variants.every(variant => variant.name.startsWith('SPF'))
+  const isAllVarSPF = variants.every(variant => variant.name?.startsWith('SPF'))
   const isSingleVariant = variants.length === 1
 
   const handleChange = e => {
@@ -33,6 +33,10 @@ function VariantSelector({
 
     return (
       <Box
+        className={'SPF_variants'}
+        onClick={() => {
+          setSelectedVariant(variant)
+        }}
         sx={{
           width: 44,
           height: 44,
@@ -48,11 +52,7 @@ function VariantSelector({
           justifyContent: 'center',
           alignItems: 'center',
         }}
-        onClick={() => {
-          setSelectedVariant(variant)
-        }}
         textAlign={'center'}
-        className={'SPF_variants'}
       >
         {variantName}
       </Box>
@@ -104,9 +104,9 @@ function VariantSelector({
             >
               {variants.map(variant => (
                 <option
-                  value={variant.sku}
                   key={variant.id}
                   selected={selectedVariant.sku === variant.sku}
+                  value={variant.sku}
                 >
                   {variant.name}
                   {'    '}

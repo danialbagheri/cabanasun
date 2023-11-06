@@ -40,6 +40,8 @@ module.exports = {
     'no-lonely-if': 'error',
     'no-unneeded-ternary': 'error',
     'one-var-declaration-per-line': 'error',
+    'no-unused-vars': 'warn',
+    '@typescript-eslint/no-unused-vars': 'warn',
     quotes: [
       'error',
       'single',
@@ -63,6 +65,7 @@ module.exports = {
     'no-unused-expressions': 'off',
     'no-prototype-builtins': 'off',
     // REACT
+    'react/jsx-key': 'warn',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/href-no-hash': [0],

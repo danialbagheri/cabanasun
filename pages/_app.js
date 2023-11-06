@@ -12,9 +12,10 @@ import '../styles/bootstrap/css/bootstrap.min.css'
 import Head from 'next/head'
 import store from '../redux/store'
 import Footer from '../components/common/footer/footer'
-import InfoBar from '../components/general/InforBar'
+
 import {AppProvider} from 'components/appProvider'
 import {MailjetSignUp} from 'components'
+import InfoBar from '../components/general/InfoBar'
 
 function MyApp({Component, pageProps}) {
   const SUBSCRIPTION_STATE = 'subscriptionState'

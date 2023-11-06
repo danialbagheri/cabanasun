@@ -31,7 +31,6 @@ export default function Searched() {
       endPoint = `${baseUrl}web/search/?q=${searchVal}`
     } else {
       const {query} = router.query
-      // setSearchValue(query);
       endPoint = `${baseUrl}web/search/?q=${query}`
     }
     setLoading(true)

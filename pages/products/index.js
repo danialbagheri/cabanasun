@@ -2,9 +2,9 @@ import {useState} from 'react'
 
 import 'react-tabs/style/react-tabs.css'
 import Head from 'next/head'
-import FilterProducts from '../../components/products/filter-products'
 import _ from 'lodash'
-import {ProductRange} from 'components'
+import {FilterProducts, ProductRange} from 'components'
+import {getProducts, getProductsWithPagination} from 'services'
 
 function Products(props) {
   const ordered_products = _.orderBy(
@@ -18,7 +18,7 @@ function Products(props) {
 
   const [maxLimit, setMaxLimit] = useState(false)
 
-  function LoadMore() {
+  function loadMore() {
     const newLimit = limit + 10
     if (newLimit >= products.length) {
       setLimit(products.length)
@@ -40,6 +40,7 @@ function Products(props) {
           name="description"
         />
       </Head>
+
       <div className="product-page-banner-image">
         <h1>
           Have you got your <br />
@@ -62,6 +63,7 @@ function Products(props) {
             products={products}
             type="sun%20protection"
           />
+
           {maxLimit ? (
             <span id="loading"></span>
           ) : (
@@ -69,7 +71,7 @@ function Products(props) {
               <button
                 className="btn btn-calypso"
                 id="loading"
-                onClick={LoadMore}
+                onClick={loadMore}
               >
                 Load More
               </button>
@@ -80,30 +82,22 @@ function Products(props) {
     </div>
   )
 }
-async function getAllPages(pageCount, url) {
+async function getAllPages(pageCount) {
   let pageNumber = 1
   const productResult = []
   for (pageNumber; pageNumber <= pageCount; pageNumber++) {
-    const paginatedUrl = url + `?page=${pageNumber}`
-    const res = await fetch(paginatedUrl)
-    const product = await res.json()
+    const product = await getProductsWithPagination(pageNumber)
     productResult.push(product.results)
   }
   return productResult
 }
 
 export async function getStaticProps() {
-  const baseUrl = process.env.API_URL
-  const endpoint = 'products/product/'
-  const finalUrl = baseUrl + endpoint
-  const res = await fetch(finalUrl)
-
-  const products = await res.json()
+  const products = await getProducts()
   const pageCount = Math.ceil(products.count / 10)
-  const productResult = await getAllPages(pageCount, finalUrl)
+  const productResult = await getAllPages(pageCount)
 
   // Now we will get the staff picked articles
-
   if (!productResult) {
     return {
       notFound: true,

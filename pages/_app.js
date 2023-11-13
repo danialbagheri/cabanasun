@@ -40,29 +40,45 @@ function MyApp({Component, pageProps}) {
           content="width=device-width, initial-scale=1, user-scalable=1"
           name="viewport"
         />
-        <link href="/favicon64.ico" rel="apple-touch-icon" sizes="64x64" />
         <link
-          href="/favicon16.ico"
-          rel="shortcut icon"
+          href="/android-chrome-192x192.png"
+          rel="icon"
+          sizes="192x192"
+          target="_blank"
+          type="image/png"
+        />
+        <link
+          href="/android-chrome-384x384.png"
+          rel="icon"
+          sizes="384x384"
+          target="_blank"
+          type="image/png"
+        />
+        <link
+          href="/apple-touch-icon.png"
+          rel="apple-touch-icon"
+          sizes="180x180"
+          target="_blank"
+        />
+        <link
+          href="/favicon-16x16.png"
+          rel="icon"
           sizes="16x16"
-          type="image/x-icon"
+          target="_blank"
+          type="image/png"
         />
         <link
-          href="/favicon24.ico"
-          rel="shortcut icon"
-          sizes="24x24"
-          type="image/x-icon"
-        />
-        <link
-          href="/favicon32.ico"
-          rel="shortcut icon"
+          href="/favicon-32x32.png"
+          rel="icon"
           sizes="32x32"
-          type="image/x-icon"
+          target="_blank"
+          type="image/png"
         />
         <link
-          href="/favicon48.ico"
-          rel="shortcut icon"
-          sizes="48x48"
+          href="/favicon.ico"
+          rel="icon"
+          sizes="16x16 32x32"
+          target="_blank"
           type="image/x-icon"
         />
 

@@ -1,21 +1,15 @@
-import {useSelector, useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import Client from 'shopify-buy'
 
 // Creates the client with Shopify-Buy and store info
 //
 const client = Client.buildClient({
-  storefrontAccessToken: '26e5b88364c3186a336646aea9e94760',
-  domain: 'shop.calypsosun.com',
+  storefrontAccessToken: '25cd3f81bfe44f957322533bdb303b15',
+  domain: 'shop.silkia.com',
   appId: '6',
 })
 
-//
-// Example Storefront
-//
-// const client = Client.buildClient({
-// 	storefrontAccessToken: "dd4d4dc146542ba7763305d71d1b3d38",
-// 	domain: "graphql.myshopify.com",
-// })
+console.log('client::::', client)
 
 const PRODUCTS_FOUND = 'shopify/PRODUCTS_FOUND'
 const PRODUCT_FOUND = 'shopify/PRODUCT_FOUND'
@@ -131,14 +125,14 @@ function getProductByQuery(query) {
 
 // test
 function checkout() {
-  let ShopifyConnect = localStorage.getItem('ShopifyConnect')
-  let now = new Date()
+  const ShopifyConnect = localStorage.getItem('ShopifyConnect')
+  const now = new Date()
   if (ShopifyConnect === null || ShopifyConnect === '') {
     return dispatch => {
       client.checkout.create().then(resp => {
-        let expirationInMin = 360
-        let expires = new Date(new Date().getTime() + 60000 * expirationInMin)
-        let sessionObject = {
+        const expirationInMin = 360
+        const expires = new Date(new Date().getTime() + 60000 * expirationInMin)
+        const sessionObject = {
           expiresAt: expires,
           cartID: resp.id,
         }
@@ -153,9 +147,9 @@ function checkout() {
     return dispatch => {
       localStorage.removeItem('ShopifyConnect')
       client.checkout.create().then(res => {
-        let expirationInMin = 360
-        let expires = new Date(new Date().getTime() + 60000 * expirationInMin)
-        let sessionObject = {
+        const expirationInMin = 360
+        const expires = new Date(new Date().getTime() + 60000 * expirationInMin)
+        const sessionObject = {
           expiresAt: expires,
           cartID: res.id,
         }
@@ -164,13 +158,12 @@ function checkout() {
         dispatch({type: CHECKOUT_FOUND, payload: res})
       })
     }
-  } else {
-    return dispatch => {
-      let cartID = JSON.parse(ShopifyConnect).cartID
-      client.checkout.fetch(cartID).then(res => {
-        dispatch({type: CHECKOUT_FOUND, payload: res})
-      })
-    }
+  }
+  return dispatch => {
+    const cartID = JSON.parse(ShopifyConnect).cartID
+    client.checkout.fetch(cartID).then(res => {
+      dispatch({type: CHECKOUT_FOUND, payload: res})
+    })
   }
 }
 // Gets Shopify store information
@@ -253,6 +246,9 @@ function handleSetCount(count) {
 
 export function useShopify() {
   const dispatch = useDispatch()
+  useSelector(appState => {
+    console.log('APP STATE::::', appState)
+  })
   const cartStatus = useSelector(appState => appState.shopifyState.isCartOpen)
   const cartCount = useSelector(appState => appState.shopifyState.cartCount)
   const products = useSelector(appState => appState.shopifyState.products)

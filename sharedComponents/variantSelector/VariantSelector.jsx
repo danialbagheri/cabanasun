@@ -4,6 +4,7 @@ import {useSearchParams} from 'next/navigation'
 
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
+import {useTheme} from '@mui/material'
 
 function VariantSelector({
   variants,
@@ -12,6 +13,7 @@ function VariantSelector({
   ...props
 }) {
   const searchParams = useSearchParams()
+  const theme = useTheme()
 
   const urlSku = searchParams.get('sku')
 
@@ -41,11 +43,13 @@ function VariantSelector({
           width: 44,
           height: 44,
           color: '#fff',
-          backgroundColor: isInStock ? '#FF6B00' : '#cdcdcd',
+          backgroundColor: isInStock ? theme.palette.primary.main : '#cdcdcd',
           padding: 2,
           borderRadius: '50%',
           border: '1px solid white',
-          boxShadow: isSelected ? ' 0 0 0 2px #ff6b00' : 'none',
+          boxShadow: isSelected
+            ? `0 0 0 2px ${theme.palette.primary.main}`
+            : 'none',
           fontWeight: 700,
           cursor: 'pointer',
           display: 'flex',

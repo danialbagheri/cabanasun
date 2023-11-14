@@ -3,13 +3,11 @@ import Client from 'shopify-buy'
 
 // Creates the client with Shopify-Buy and store info
 //
+
 const client = Client.buildClient({
   storefrontAccessToken: '25cd3f81bfe44f957322533bdb303b15',
   domain: 'shop.silkia.com',
-  appId: '6',
 })
-
-console.log('client::::', client)
 
 const PRODUCTS_FOUND = 'shopify/PRODUCTS_FOUND'
 const PRODUCT_FOUND = 'shopify/PRODUCT_FOUND'
@@ -85,6 +83,7 @@ function getProduct(id) {
     return resp
   }
 }
+
 function getProductByQuery(query) {
   return async dispatch => {
     const resp = await client.product.fetchQuery(query)
@@ -246,9 +245,7 @@ function handleSetCount(count) {
 
 export function useShopify() {
   const dispatch = useDispatch()
-  useSelector(appState => {
-    console.log('APP STATE::::', appState)
-  })
+
   const cartStatus = useSelector(appState => appState.shopifyState.isCartOpen)
   const cartCount = useSelector(appState => appState.shopifyState.cartCount)
   const products = useSelector(appState => appState.shopifyState.products)

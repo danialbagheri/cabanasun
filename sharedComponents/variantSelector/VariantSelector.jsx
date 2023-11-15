@@ -40,13 +40,13 @@ function VariantSelector({
           setSelectedVariant(variant)
         }}
         sx={{
-          width: 44,
-          height: 44,
-          color: '#fff',
+          width: 45,
+          height: 45,
+          color: isInStock ? theme.palette.golden.main : '#fff',
           backgroundColor: isInStock ? theme.palette.primary.main : '#cdcdcd',
           padding: 2,
           borderRadius: '50%',
-          border: '1px solid white',
+          border: '2px solid white',
           boxShadow: isSelected
             ? `0 0 0 2px ${theme.palette.primary.main}`
             : 'none',

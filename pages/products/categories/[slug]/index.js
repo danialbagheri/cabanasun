@@ -1,37 +1,25 @@
 import {useContext, useEffect} from 'react'
 
-/* ---------------------------- NextJs Components --------------------------- */
+import 'react-tabs/style/react-tabs.css'
 import Head from 'next/head'
-import {useRouter} from 'next/router'
-/* -------------------------------------------------------------------------- */
-
-/* ----------------------------- MUI Components ----------------------------- */
-import {Box, Typography} from '@mui/material'
-/* -------------------------------------------------------------------------- */
-
-/* ---------------------------- Local Components ---------------------------- */
 import {AppContext, ProductRange} from 'components'
+
+import {useRouter} from 'next/router'
+import {Box, Typography} from '@mui/material'
+
 import {
   getCollectionBanner,
-  getProducts,
-  getProductsWithPagination,
+  getListOfProductsType,
+  getProductsByCategory,
 } from 'services'
-
 import {useAuthFetch} from 'components/customHooks'
 import {getFavoriteVariantsHandler} from 'utils'
-/* -------------------------------------------------------------------------- */
-
-/* --------------------------------- Styles --------------------------------- */
-import 'react-tabs/style/react-tabs.css'
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------- Constants ------------------------------- */
 
 const LG_IMAGE = 'lg_image'
 const MD_IMAGE = 'md_image'
 const MOBILE_IMAGE = 'mobile_webp'
 
-function Products(props) {
+function Category(props) {
   const [appState, setAppState] = useContext(AppContext)
   const authFetchHandler = useAuthFetch()
   const router = useRouter()
@@ -63,7 +51,7 @@ function Products(props) {
   return (
     <div>
       <Head>
-        <title>Cabana products</title>
+        <title>Calypso Products</title>
         <meta
           content="From scalp protection to insect repellent, we have everything you need to stay protected in the sun both at home and abroad. Our products are available to buy from some of the biggest UK grocery chains as well as some independent pharmacies, and online on Amazon."
           name="description"
@@ -75,6 +63,7 @@ function Products(props) {
           {props.products.length ? (
             <ProductRange
               banner={productFinderBannerSrc}
+              category={props.category}
               products={props.products}
               videoBanner={props.videoBanner}
             />
@@ -90,23 +79,50 @@ function Products(props) {
     </div>
   )
 }
-async function getAllPages(pageCount) {
+
+export const getStaticPaths = async () => {
+  try {
+    const types = await getListOfProductsType()
+    const paths = []
+
+    types.forEach(type => {
+      if (type?.slug) {
+        paths.push({params: {slug: type.slug}})
+      }
+    })
+
+    return {
+      paths, //indicates that no page needs be created at build time
+      fallback: 'blocking', //indicates the type of fallback
+    }
+  } catch (err) {
+    console.error(err)
+    return {
+      paths: [], //indicates that no page needs be created at build time
+      fallback: 'blocking', //indicates the type of fallback
+    }
+  }
+}
+
+async function getAllPages({pageCount, category}) {
   let pageNumber = 1
   const productResult = []
   for (pageNumber; pageNumber <= pageCount; pageNumber++) {
-    const product = await getProductsWithPagination(pageNumber)
+    const product = await getProductsByCategory({category, page: pageNumber})
     productResult.push(product.results)
   }
   return productResult
 }
 
-export async function getStaticProps() {
-  const products = await getProducts()
+export async function getStaticProps(context) {
+  const category = context.params.slug
+  const products = await getProductsByCategory({category})
   const pageCount = Math.ceil(products.count / 10)
-  const productResult = await getAllPages(pageCount)
+
+  const productResult = await getAllPages({pageCount, category})
 
   const productFinderBannerResult = await getCollectionBanner('product-finder')
-  const videoBanner = await getCollectionBanner('product-page-banner')
+  const videoBanner = await getCollectionBanner(category)
 
   const productFinderBanner =
     productFinderBannerResult?.results[0]?.slides ?? []
@@ -116,9 +132,10 @@ export async function getStaticProps() {
       products: productResult?.flat() ?? [],
       productFinderBanner,
       videoBanner: videoBanner?.results ?? [],
+      category,
     },
     revalidate: 120, // will be passed to the page component as props
   }
 }
 
-export default Products
+export default Category

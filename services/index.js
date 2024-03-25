@@ -21,6 +21,46 @@ export const postOutOfStockEmail = data => {
 export const postSurveys = data => {
   return post({endpoint: 'surveys/submit/', data})
 }
+//USER
+
+export const postCreateUser = data => {
+  return post({endpoint: 'users/', data})
+}
+
+export const postUserSignIn = ({data, keepSignedIn = false}) => {
+  return post({
+    endpoint: `users/token/?keep_logged_in=${keepSignedIn ? 'True' : 'False'}`,
+    data,
+  })
+}
+
+export const postRefreshToken = data => {
+  return post({endpoint: 'users/token/refresh/', data})
+}
+
+export const postVerificationCookie = () => {
+  return post({endpoint: 'users/cookie/verify/'})
+}
+
+export const postSetPassword = ({data, token}) => {
+  return post({endpoint: 'users/set_password/', data, token})
+}
+
+export const postUserActivation = data => {
+  return post({endpoint: 'users/activation/', data})
+}
+
+export const postResendActivation = data => {
+  return post({endpoint: 'users/resend_activation/', data})
+}
+
+export const postResetPasswordEmail = data => {
+  return post({endpoint: 'users/reset_password/', data})
+}
+
+export const confirmResetPassword = data => {
+  return post({endpoint: 'users/reset_password_confirm/', data})
+}
 /* -------------------------------------------------------------------------- */
 
 /* ------------------------------ GET Requests ------------------------------ */
@@ -100,9 +140,58 @@ export const getTopBarStatus = () => {
 export const getRetrieveMenu = () => {
   return get({endpoint: 'web/menus/main'})
 }
+
+export const getProductsByCategory = ({category, page = 1}) => {
+  return get({endpoint: `products/product/?type=${category}$page=${page}`})
+}
+
+export const getListOfProductsType = () => {
+  return get({endpoint: 'products/types/'})
+}
+//USER
+export const getUserAddresses = token => {
+  return get({endpoint: 'users/addresses/', token})
+}
+
+export const getUserInfo = token => {
+  return get({endpoint: 'users/me/', token})
+}
+
+export const getUserOrders = token => {
+  return get({endpoint: 'users/orders/', token})
+}
+
+//END USER
+
+export const getFavoriteProducts = token => {
+  return get({endpoint: 'products/favorites/', token})
+}
 /* ----------------------------- Patch requests ----------------------------- */
 export const singleReviewPatch = (id, data) => {
   return patch({endpoint: `reviews/rate/${id}/`, data})
+}
+//User
+
+export const patchUserInfo = (data, token) => {
+  return patch({endpoint: 'users/me/', data, token})
+}
+
+//END USER
+
+export const addProductToFavorite = (slug, token, action) => {
+  return patch({endpoint: `products/favorites/${slug}/`, token, data: {action}})
+}
+
+export const getFavoriteVariants = token => {
+  return get({endpoint: 'products/variants/favorites/', token})
+}
+
+export const favoriteVariantHandler = (sku, token, action) => {
+  return patch({
+    endpoint: `products/variants/favorites/${sku}/`,
+    token,
+    data: {action},
+  })
 }
 /* -------------------------------------------------------------------------- */
 

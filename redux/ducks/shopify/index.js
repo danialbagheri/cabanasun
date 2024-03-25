@@ -263,7 +263,7 @@ export function useShopify() {
   const openCart = () => dispatch(handleCartOpen())
   const setCount = count => dispatch(handleSetCount(count))
 
-  const addVariant = (checkoutId, lineItemsToAdd) =>
+  const addVariant = async (checkoutId, lineItemsToAdd) =>
     dispatch(addVariantToCart(checkoutId, lineItemsToAdd))
   const updateQuantity = (lineItemId, quantity, checkoutID) =>
     dispatch(updateQuantityInCart(lineItemId, quantity, checkoutID))

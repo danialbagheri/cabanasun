@@ -21,5 +21,6 @@
     "commandCenter.border": "#1d6bb9"
   },
   "peacock.color": "#26b5ce",
-  "eslint.enable": true
+  "eslint.enable": true,
+  "cSpell.words": ["calref"]
 }

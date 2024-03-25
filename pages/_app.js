@@ -11,25 +11,37 @@ import '../styles/bootstrap/css/bootstrap-theme.min.css'
 import '../styles/bootstrap/css/bootstrap.min.css'
 import Head from 'next/head'
 import store from '../redux/store'
-import Footer from '../components/common/footer/footer'
+import {Footer} from 'components/common/footer'
 
 import {AppProvider} from 'components/appProvider'
 import {MailjetSignUp} from 'components'
 import InfoBar from '../components/general/InfoBar'
+import {assetsEndPoints, getAssets} from '../utils'
+import {getRetrieveMenu} from 'services'
+import App from 'next/app'
 
 function MyApp({Component, pageProps}) {
-  const SUBSCRIPTION_STATE = 'subscriptionState'
-  const SIGNED_UP = 'signedUp'
+  const navItems = pageProps?.navItems
 
   const [interval, setInterval] = React.useState(0)
-  const [showSubscription, setShowSubscription] = React.useState(false)
+
+  const [icons, setIcons] = React.useState({})
+
+  const handleGetAssets = async () => {
+    const response = await getAssets([
+      assetsEndPoints.userAccount,
+      assetsEndPoints.infoBar,
+    ])
+
+    if (response && typeof response === 'object') {
+      setIcons({
+        ...response,
+      })
+    }
+  }
 
   React.useEffect(() => {
-    const subscriptionState = localStorage.getItem(SUBSCRIPTION_STATE)
-
-    if (!subscriptionState || subscriptionState !== SIGNED_UP) {
-      setShowSubscription(true)
-    }
+    handleGetAssets()
   }, [])
 
   return (
@@ -123,7 +135,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }}
         />
       </Head>
-      <AppProvider>
+      <AppProvider icons={icons}>
         <SessionProvider refetchInterval={interval} session={pageProps.session}>
           <Provider store={store}>
             {/* <!-- Google Tag Manager (noscript) --> */}
@@ -138,8 +150,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           ></iframe>`,
               }}
             />
-            <Header />
-            {showSubscription ? <MailjetSignUp /> : null}
+            <Header navItems={navItems} />
+            <MailjetSignUp />
 
             <InfoBar />
             <Component {...pageProps} />
@@ -157,7 +169,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               our website.
             </CookieConsent>
 
-            <Footer showSubscription={showSubscription} />
+            <Footer />
             <RefreshTokenHandler setInterval={setInterval} />
           </Provider>
         </SessionProvider>
@@ -167,3 +179,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 }
 
 export default MyApp
+
+MyApp.getInitialProps = async appContext => {
+  const appProps = await App.getInitialProps(appContext)
+
+  try {
+    getRetrieveMenu()
+      .then(res => {
+        appProps.pageProps.navItems = res.sub_menus
+      })
+      .catch(err => console.error(err))
+  } catch (err) {
+    console.error(err)
+  }
+
+  return {...appProps}
+}

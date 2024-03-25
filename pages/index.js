@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 import Head from 'next/head'
 
 import {BestSeller, HomeSlider, Trending} from 'components'
@@ -7,8 +9,21 @@ import {
   getCollectionBanner,
   getTrendingUrls,
 } from 'services'
+import {AppContext} from '../components/appProvider/AppProvider'
 
-function Home({slides, isLoaded, trending, bestseller, secondarySlides}) {
+import {useAuthFetch} from 'components/customHooks'
+import {getFavoriteVariantsHandler} from 'utils'
+
+function Home(props) {
+  const {slides, isLoaded, trending, bestseller, secondarySlides} = props
+  const [, setAppState] = React.useContext(AppContext)
+  const authFetchHandler = useAuthFetch()
+
+  React.useEffect(() => {
+    //Get user favorite products
+    getFavoriteVariantsHandler({setAppState, authFetchHandler})
+  }, [])
+
   return (
     <div>
       <Head>

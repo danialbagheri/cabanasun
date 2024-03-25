@@ -6,6 +6,10 @@ const theme = createTheme({
       light: '#FCF5EC',
       main: '#942C00',
     },
+    //TODO::: change color to cabana beige
+    beige: {
+      main: '#FBF3EA',
+    },
     secondary: {
       main: '#226F61',
     },
@@ -70,6 +74,13 @@ const theme = createTheme({
       fontWeight: 700,
       fontSize: '16px !important',
       lineHeight: '20px',
+    },
+    h7: {
+      fontFamily: 'proxima-nova, sans',
+      fontStyle: 'normal',
+      fontWeight: 500,
+      fontSize: '18px',
+      lineHeight: 'normal',
     },
     subtitle1: {
       fontFamily: 'Helvetica Neue',

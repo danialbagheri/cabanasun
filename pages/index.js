@@ -4,18 +4,14 @@ import Head from 'next/head'
 
 import {BestSeller, HomeSlider, Trending} from 'components'
 
-import {
-  getBestSellerResults,
-  getCollectionBanner,
-  getTrendingUrls,
-} from 'services'
+import {getCollectionBanner, getTrendingUrls} from 'services'
 import {AppContext} from '../components/appProvider/AppProvider'
 
 import {useAuthFetch} from 'components/customHooks'
 import {getFavoriteVariantsHandler} from 'utils'
 
 function Home(props) {
-  const {slides, isLoaded, trending, bestseller, secondarySlides} = props
+  const {trendingItems, homepageBanner} = props
   const [, setAppState] = React.useContext(AppContext)
   const authFetchHandler = useAuthFetch()
 
@@ -49,13 +45,10 @@ function Home(props) {
 
       <main>
         <section className="top-0">
-          <HomeSlider isLoaded={isLoaded} slides={slides} />
-
-          <Trending trending={trending} />
-          {secondarySlides ? (
-            <HomeSlider isLoaded={isLoaded} second slides={secondarySlides} />
-          ) : null}
-          <BestSeller bestseller={bestseller} />
+          <HomeSlider banner={homepageBanner} />
+          <Trending items={trendingItems} />
+          <HomeSlider />
+          <BestSeller />
           {/* <StaySafe /> */}
           {/* <AsSeen /> */}
           {/* <BlogSlider /> */}
@@ -67,43 +60,18 @@ function Home(props) {
 }
 
 export async function getStaticProps() {
-  const props = {
-    slides: [],
-    secondarySlides: [],
-    isLoaded: false,
-    trending: [],
-    bestseller: {},
-  }
-  const promises = [
-    getCollectionBanner('homepage'),
-    getCollectionBanner('secondary'),
-    getTrendingUrls(),
-    getBestSellerResults(),
-  ]
+  const promises = [getTrendingUrls(), getCollectionBanner('homepage')]
   const results = await Promise.allSettled(promises)
-
-  results.forEach((res, i) => {
-    if (res.status === 'fulfilled') {
-      switch (i) {
-        case 0:
-          props.slides = res.value.results
-          break
-        case 1:
-          props.secondarySlides = res.value.results
-          break
-        case 2:
-          props.trending = res.value.items
-          break
-        case 3:
-          props.bestseller = res.value
-          break
-      }
-    }
-  })
+  const initialProps = {
+    trendingItems:
+      results[0]?.status === 'fulfilled' ? results[0].value.items : [],
+    homepageBanner:
+      results[1]?.status === 'fulfilled' ? results[1].value.results : [],
+  }
 
   return {
-    props: {...props, isLoaded: true},
-    revalidate: 120, // will be passed to the page component as props
+    props: {...initialProps},
+    revalidate: 120,
   }
 }
 

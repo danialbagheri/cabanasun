@@ -816,6 +816,7 @@ input.search-field:focus {
 
 .Cart--open {
   transform: translateX(0);
+  z-index: 1300;
 }
 
 .Cart__close {

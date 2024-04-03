@@ -1,30 +1,30 @@
 import * as React from 'react'
 
+import App from 'next/app'
+import Head from 'next/head'
+
 import {SessionProvider} from 'next-auth/react'
 import {Provider} from 'react-redux'
 import CookieConsent from 'react-cookie-consent'
 
-import RefreshTokenHandler from '../services/refreshTokenHandler'
-import '../styles/globals.css'
-import Header from '../components/header'
-import '../styles/bootstrap/css/bootstrap-theme.min.css'
-import '../styles/bootstrap/css/bootstrap.min.css'
-import Head from 'next/head'
 import store from '../redux/store'
-import {Footer} from 'components/common/footer'
-
-import {AppProvider} from 'components/appProvider'
+import Header from 'components/header'
 import {MailjetSignUp} from 'components'
-import InfoBar from '../components/general/InfoBar'
-import {assetsEndPoints, getAssets} from '../utils'
 import {getRetrieveMenu} from 'services'
-import App from 'next/app'
+import {Footer} from 'components/common/footer'
+import InfoBar from 'components/general/InfoBar'
+import {assetsEndPoints, getAssets} from 'utils'
+import {AppProvider} from 'components/appProvider'
+import RefreshTokenHandler from '../services/refreshTokenHandler'
+
+import '../styles/globals.css'
+import '../styles/bootstrap/css/bootstrap.min.css'
+import '../styles/bootstrap/css/bootstrap-theme.min.css'
 
 function MyApp({Component, pageProps}) {
   const navItems = pageProps?.navItems
 
   const [interval, setInterval] = React.useState(0)
-
   const [icons, setIcons] = React.useState({})
 
   const handleGetAssets = async () => {

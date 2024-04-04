@@ -142,7 +142,7 @@ export const getRetrieveMenu = () => {
 }
 
 export const getProductsByCategory = ({category, page = 1}) => {
-  return get({endpoint: `products/product/?type=${category}$page=${page}`})
+  return get({endpoint: `products/product/?type=${category}&page=${page}`})
 }
 
 export const getListOfProductsType = () => {

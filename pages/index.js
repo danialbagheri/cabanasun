@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import Head from 'next/head'
 
-import {BestSeller, HomeSlider, Trending} from 'components'
+import {BestSellerSlider, HomeSlider, Trending} from 'components'
 
 import {getCollectionBanner, getTrendingUrls} from 'services'
 import {AppContext} from '../components/appProvider/AppProvider'
@@ -48,7 +48,7 @@ function Home(props) {
           <HomeSlider banner={homepageBanner} />
           <Trending items={trendingItems} />
           <HomeSlider />
-          <BestSeller />
+          <BestSellerSlider />
           {/* <StaySafe /> */}
           {/* <AsSeen /> */}
           {/* <BlogSlider /> */}

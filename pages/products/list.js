@@ -1,5 +1,6 @@
 import 'react-tabs/style/react-tabs.css'
 import Head from 'next/head'
+import {WEBSITE_NAME} from 'constants/general'
 
 function Products(props) {
   const products = props.products
@@ -34,8 +35,8 @@ function Products(props) {
     <div>
       <Head>
         <title>
-          Calypso Products range - Sun Protection, After Sun, Kids products,
-          Tanning and Health care
+          {WEBSITE_NAME} Products range - Sun Protection, After Sun, Kids
+          products, Tanning and Health care
         </title>
         <meta
           content="From scalp protection to insect repellent, we have everything you need to stay protected in the sun both at home and abroad. Our products are available to buy from some of the biggest UK grocery chains as well as some independent pharmacies, and online on Amazon."

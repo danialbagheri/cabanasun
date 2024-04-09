@@ -6,6 +6,7 @@ import {AppContext, SearchResultElements} from 'components'
 import style from './search.module.css'
 import {Box, Container, Typography, useTheme} from '@mui/material'
 import Link from 'next/link'
+import {WEBSITE_NAME} from 'constants/general'
 
 export default function SearchPage() {
   const theme = useTheme()
@@ -14,7 +15,7 @@ export default function SearchPage() {
   return (
     <div>
       <Head>
-        <title>Calypso - Search</title>
+        <title>{WEBSITE_NAME} - Search</title>
       </Head>
       <Container sx={{minHeight: '100vh'}}>
         <div className={style.search}>

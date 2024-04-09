@@ -28,7 +28,7 @@ function Home(props) {
         <meta content="Cabana" name="description" />
         <meta
           name="twitter:card"
-          value="Calypso sun are suitable for the whole family and protect all skin types from the harmful effects of both UVA and UVB rays. Try Calypso Once a Day sunscreen, aftersun products or new range of Calypso hand sanitisers."
+          value="Cabana sun are suitable for the whole family and protect all skin types from the harmful effects of both UVA and UVB rays. Try Cabana Once a Day sunscreen, aftersun products or new range of Cabana hand sanitisers."
         />
 
         <meta content="Cabana" property="og:title" />

@@ -6,6 +6,7 @@ import SearchResultElements from 'components/general/SearchResultElements/Search
 import * as ga from '../../components/common/googleAnalytics'
 import {useRouter} from 'next/router'
 import Head from 'next/head'
+import {WEBSITE_NAME} from 'constants/general'
 
 export default function Searched() {
   const router = useRouter()
@@ -79,7 +80,7 @@ export default function Searched() {
   return (
     <div className="search-page">
       <Head>
-        <title>Calypso - Search</title>
+        <title>{WEBSITE_NAME} - Search</title>
       </Head>
       <div className="search-container">
         <div className="search-box" id="search-form">

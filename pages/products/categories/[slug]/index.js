@@ -14,6 +14,7 @@ import {
 } from 'services'
 import {useAuthFetch} from 'components/customHooks'
 import {getFavoriteVariantsHandler} from 'utils'
+import {WEBSITE_NAME} from 'constants/general'
 
 const LG_IMAGE = 'lg_image'
 const MD_IMAGE = 'md_image'
@@ -51,7 +52,7 @@ function Category(props) {
   return (
     <div>
       <Head>
-        <title>Calypso Products</title>
+        <title>{WEBSITE_NAME} Products</title>
         <meta
           content="From scalp protection to insect repellent, we have everything you need to stay protected in the sun both at home and abroad. Our products are available to buy from some of the biggest UK grocery chains as well as some independent pharmacies, and online on Amazon."
           name="description"

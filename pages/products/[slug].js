@@ -27,6 +27,7 @@ import {
   getProductsWithPagination,
 } from 'services'
 import {useSearchParams} from 'next/navigation'
+import {WEBSITE_NAME} from 'constants/general'
 
 function Product(props) {
   const {productData, reviewData, slug, error} = props
@@ -61,7 +62,7 @@ function Product(props) {
       />
       <Head>
         <title>
-          Calypso - {productData.name} - {productData.sub_title}
+          {WEBSITE_NAME} - {productData.name} - {productData.sub_title}
         </title>
         <meta content={productData.plain_description} name="description" />
         <meta content="product" name="twitter:card" />

@@ -101,7 +101,6 @@ function MyApp({Component, pageProps}) {
         <meta content="#da532c" name="msapplication-TileColor" />
         <meta content="#ffffff" name="theme-color" />
         <meta content="#000000" name="theme-color" />
-        <meta content="@calypsosuncare" name="twitter:site"></meta>
         {/* Global Site Tag (gtag.js) - Google Analytics */}
         <script
           async

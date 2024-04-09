@@ -3,14 +3,14 @@
 }
 
 :root {
-  --calypso-color: #fc6b21;
+  --calypso-color: #942c00;
   --light-gray: #f9f9fc;
   --dark-orange: #c04c30;
   --darker-orange: #6c2d1d;
   --green: #226f61;
   --gold: #f5af3f;
   --gray: #e2e2e2;
-  --new-orange: #fb4c1e;
+  --new-orange: #942c00;
 }
 
 .material-icons {
@@ -1676,18 +1676,18 @@ a img {
 
 .calypsoOrange,
 .bg-calypso {
-  background-color: #fc6b21;
+  background-color: #942c00;
 }
 
 .CalypsoOrangeText,
 .calypso-orange,
 .calypso-orange-text {
-  color: #fc6b21;
+  color: #942c00;
 }
 
 .btn-round-calypso {
   text-decoration: none;
-  background-color: #fc6b21;
+  background-color: #942c00;
   border-radius: 25px;
   padding: 10px 15px;
   color: #fff;

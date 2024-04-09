@@ -24,7 +24,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     // Possible errors
     'no-console': ['warn', {allow: ['warn', 'error']}],
@@ -40,8 +40,6 @@ module.exports = {
     'no-lonely-if': 'error',
     'no-unneeded-ternary': 'error',
     'one-var-declaration-per-line': 'error',
-    'no-unused-vars': 'warn',
-    '@typescript-eslint/no-unused-vars': 'warn',
     quotes: [
       'error',
       'single',
@@ -53,6 +51,21 @@ module.exports = {
     // ES6
     'array-callback-return': 'off',
     'prefer-const': 'error',
+    // TypeScript rules
+    '@typescript-eslint/array-type': [
+      'warn',
+      {
+        default: 'array',
+      },
+    ],
+    '@typescript-eslint/consistent-type-assertions': [
+      'warn',
+      {
+        assertionStyle: 'as',
+        objectLiteralTypeAssertions: 'never',
+      },
+    ],
+    '@typescript-eslint/no-explicit-any': ['error'],
     // Imports
     'import/prefer-default-export': 'off',
     'sort-imports': [
@@ -65,7 +78,6 @@ module.exports = {
     'no-unused-expressions': 'off',
     'no-prototype-builtins': 'off',
     // REACT
-    'react/jsx-key': 'warn',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/href-no-hash': [0],

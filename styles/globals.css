@@ -180,10 +180,6 @@ a:hover {
   float: left;
 }
 
-p > a {
-  color: #fc6b21;
-}
-
 .d-none {
   display: none !important;
 }

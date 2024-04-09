@@ -148,6 +148,10 @@ export const getProductsByCategory = ({category, page = 1}) => {
 export const getListOfProductsType = () => {
   return get({endpoint: 'products/types/'})
 }
+
+export const getFaqs = (page = 1) => {
+  return get({endpoint: `faq/?page=${page}`})
+}
 //USER
 export const getUserAddresses = token => {
   return get({endpoint: 'users/addresses/', token})

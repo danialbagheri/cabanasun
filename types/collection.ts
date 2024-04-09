@@ -8,13 +8,13 @@ import {
   ScoreChartTypes,
   SliderType,
   TagTypes,
-  VariantsType,
+  VariantType,
 } from './types'
 
 export type CollectionItemType = {
   item: {
     id: number | string
-    variants: VariantsType[]
+    variants: VariantType[]
     faq_list: FaqTypes[]
     tags: TagTypes[]
     main_image_data: ImageListTypes

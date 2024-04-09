@@ -160,6 +160,14 @@ export const getPrivacyPolicy = () => {
 export const getReturnPolicy = () => {
   return get({endpoint: 'page/returns-policy/'})
 }
+
+export const getTermsAndConditions = () => {
+  return get({endpoint: 'page/terms-conditions/'})
+}
+
+export const userSubscription = data => {
+  return post({endpoint: 'users/subscribe/mailjet/', data})
+}
 //USER
 export const getUserAddresses = token => {
   return get({endpoint: 'users/addresses/', token})

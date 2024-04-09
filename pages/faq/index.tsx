@@ -6,6 +6,7 @@ import BreadCrumb from 'components/common/breadcrumb'
 import FaqItems from 'components/faqs/faq-item'
 import {FaqType} from 'types'
 import {getFaqs} from 'services'
+import {Box, Typography} from '@mui/material'
 
 interface PropsType {
   faqs: FaqType[]
@@ -35,15 +36,31 @@ export default function Faq(props: PropsType) {
 
   return (
     <div itemProp="mainEntity" itemScope itemType="http://schema.org/FAQPage">
-      <div className="faq-row">
+      <Box className="faq-row centralize">
         <Image
           alt="Frequently Asked Questions"
           fill
           src="/faq/faqs.jpg"
           style={{objectFit: 'cover', objectPosition: '80% 100%'}}
         />
-        <h3 className="mt-4 faq-page-title text-calypso" itemProp="name">
-          Frequently Asked Questions
+        <Box
+          sx={{
+            maxWidth: 500,
+            m: '0 auto',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            '& > *': {width: '100%'},
+          }}
+        >
+          <Typography
+            color="#FFF"
+            fontSize={32}
+            fontWeight={500}
+            sx={{zIndex: 1}}
+          >
+            Frequently Asked Questions
+          </Typography>
           <br />
           <CustomOutlinedInput
             onChange={e => searchHandle(e)}
@@ -52,8 +69,8 @@ export default function Faq(props: PropsType) {
             type="text"
             value={search}
           />
-        </h3>
-      </div>
+        </Box>
+      </Box>
       <div className="container">
         <div style={{padding: 10}}>
           <BreadCrumb breadcrumbs={breadCrumbPath} />

@@ -22,5 +22,5 @@
   },
   "peacock.color": "#26b5ce",
   "eslint.enable": true,
-  "cSpell.words": ["calref"]
+  "cSpell.words": ["calacc", "calref"]
 }

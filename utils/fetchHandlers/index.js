@@ -25,26 +25,27 @@ const get = async ({endpoint, baseURL = BASE_URL}) => {
   return errorHandler(response)
 }
 
-const post = async ({endpoint, data}) => {
-  const timeout = 8000
-  const controller = new AbortController()
-  const id = setTimeout(() => controller.abort(), timeout)
-
-  const response = await window.fetch(`${BASE_URL}${endpoint}`, {
+const post = async ({endpoint, data, token = null, ...headers}) => {
+  const response = await fetch(`${BASE_URL}${endpoint}`, {
     method: 'POST',
     timeout: 8000,
-    signal: controller.signal,
     headers: {
       'Content-Type': 'application/json',
+      ...(token ? {Authorization: `Bearer ${token}`} : {}),
+      ...headers,
     },
     body: JSON.stringify(data),
   })
 
   if (response.ok) {
-    clearTimeout(id)
-    return Promise.resolve(await response.json())
+    const text = await response.text()
+    if (text) {
+      return Promise.resolve(JSON.parse(text))
+    }
+
+    return Promise.resolve(null)
   }
-  clearTimeout(id)
+
   return errorHandler(response)
 }
 

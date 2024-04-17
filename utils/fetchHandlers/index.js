@@ -8,12 +8,24 @@ const errorHandler = response => {
   }
 }
 
-const get = async ({endpoint, baseURL = BASE_URL}) => {
+const get = async ({
+  endpoint,
+  baseURL = BASE_URL,
+  token = null,
+  ...headers
+}) => {
   const timeout = 80000
   const controller = new AbortController()
   const id = setTimeout(() => controller.abort(), timeout)
 
   const response = await fetch(`${baseURL}${endpoint}`, {
+    method: 'GET',
+    headers: {
+      ...(token ? {Authorization: `Bearer ${token}`} : {}),
+      'Content-Type': 'application/json', // Adjust the content type if needed
+      // credentials: 'include',
+      ...headers,
+    },
     timeout: 8000,
     signal: controller.signal,
   })
@@ -49,7 +61,7 @@ const post = async ({endpoint, data, token = null, ...headers}) => {
   return errorHandler(response)
 }
 
-const patch = async ({endpoint, data}) => {
+const patch = async ({endpoint, data, token = null}) => {
   const timeout = 8000
   const controller = new AbortController()
   const id = setTimeout(() => controller.abort(), timeout)
@@ -59,13 +71,14 @@ const patch = async ({endpoint, data}) => {
     timeout: 8000,
     signal: controller.signal,
     headers: {
+      ...(token ? {Authorization: `Bearer ${token}`} : {}),
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   })
   if (response.ok) {
     clearTimeout(id)
-    return Promise.resolve(await response.json())
+    return Promise.resolve(response)
   }
   clearTimeout(id)
   return errorHandler(response)

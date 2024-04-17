@@ -50,6 +50,7 @@ export default function Dashboard() {
      * Functions which should be done when user is authenticated
      */
     const onAuthenticatedAction = async token => {
+      console.log('token::::', token)
       const data = await getUserInfo(token)
       const orders = await getUserOrders(token)
       setUserData(prevState => ({...prevState, info: {...data}, orders}))

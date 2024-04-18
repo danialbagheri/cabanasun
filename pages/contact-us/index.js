@@ -6,6 +6,7 @@ import {
   INFO_EMAIL,
   PHONE_NUMBER_TO_DIAL,
   PHONE_NUMBER_TO_SHOW,
+  WEBSITE_NAME,
   WEBSITE_NAME_FULL_NAME,
 } from 'constants/general'
 
@@ -63,7 +64,7 @@ function ContactUs() {
             <strong>Postal Address</strong>
           </p>
           <p>
-            Calypso Team - Linco Care Ltd.
+            {WEBSITE_NAME} Team - Linco Care Ltd.
             <br />
             Linco House
             <br />
@@ -80,7 +81,7 @@ function ContactUs() {
             <strong>Return Address</strong>
           </p>
           <p>
-            Calypso - QHorizons Ltd.
+            {WEBSITE_NAME} - QHorizons Ltd.
             <br />
             Linco House
             <br />
